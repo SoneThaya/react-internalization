@@ -1,31 +1,24 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { FormattedMessage } from "react-intl";
+import { IntlProvider, FormattedMessage, FormattedNumber } from "react-intl";
+// Translated messages in French with matching IDs to what you declared
+const messagesInFrench = {
+  myMessage: "Aujourd'hui, c'est le {ts, date, ::yyyyMMdd}",
+};
 
 function App() {
   return (
-    <div className="App">
+    <IntlProvider messages={messagesInFrench} locale="fr" defaultLocale="en">
       <p>
         <FormattedMessage
-          id="app.text"
-          defaultMessage="Edit <code>src/App.js</code> and save to reload.<br/>Now with {what}!"
-          description="Welcome header on app main page"
-          values={{ what: "react-intl" }}
+          id="myMessage"
+          defaultMessage="Today is {ts, date, ::yyyyMMdd}"
+          values={{ ts: Date.now() }}
         />
+        <br />
+        <FormattedNumber value={19} style="currency" currency="EUR" />
       </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <FormattedMessage
-          id="app.learn-react-link"
-          defaultMessage="Learn React"
-          description="Link on react page"
-        />
-      </a>
-    </div>
+    </IntlProvider>
   );
 }
 
